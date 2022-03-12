@@ -26,7 +26,8 @@ import co.edu.eafit.bank.entityservice.TransactionService;
 import co.edu.eafit.bank.entityservice.TransactionTypeService;
 import co.edu.eafit.bank.entityservice.UsersService;
 import co.edu.eafit.bank.exception.ZMessManager;
-import co.edu.eafit.bank.openfeignclients.OTPServiceClient;
+import co.edu.eafit.bank.openfeignclients.FeignClients;
+//import co.edu.eafit.bank.openfeignclients.OTPServiceClient;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -50,8 +51,11 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 //	@Autowired
 //	WebClient otpClient;
 	
+//	@Autowired
+//	OTPServiceClient otpServiceClient;
+	
 	@Autowired
-	OTPServiceClient otpServiceClient;
+	FeignClients feignClients;
 
 //	// Access to configured property of the project
 //	@Value("${otp.service.validate.url}")
@@ -119,7 +123,8 @@ public class BankTransactionServiceImpl implements BankTransactionService {
 	private OTPValidationResponse validateToken(String user, String otp) throws Exception {
 		
 		OTPValidationRequest otpValidationRequest = new OTPValidationRequest(user, otp);
-		return otpServiceClient.validateOTP(otpValidationRequest);
+//		return otpServiceClient.validateOTP(otpValidationRequest);
+		return feignClients.validateOTP(otpValidationRequest);
 			
 	}
 

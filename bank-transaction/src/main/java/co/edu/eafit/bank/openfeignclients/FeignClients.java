@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import co.edu.eafit.bank.dto.OTPValidationRequest;
 import co.edu.eafit.bank.dto.OTPValidationResponse;
 
-
 @FeignClient(
-		value = "bank-otp"
+		value = "api-gateway"
 		)
-public interface OTPServiceClient {
-
-	@PostMapping("/api/v1/otp/validate")
+public interface FeignClients {
+	
+	@PostMapping("/bank-otp/api/v1/otp/validate")
 	public OTPValidationResponse validateOTP(
 			@Valid @RequestBody
 			OTPValidationRequest otpValidationRequest);
